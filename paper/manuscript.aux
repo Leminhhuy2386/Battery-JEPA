@@ -1,0 +1,110 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\orcidauthor{0000-0001-6152-6215}{Minhhuy Le}
+\csgdef{mark@corau1}{1}
+\emailauthor{huy.leminh@email.edu}{Minhhuy Le}
+\citation{severson2019data,attia2020closed}
+\citation{li2023batteryml}
+\citation{he2022masked,grill2020bootstrap,caron2021emerging}
+\citation{zhang2020deep,xiong2020critical}
+\citation{lecun2022path,jepa2023ijepa}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Methodology: Mathematical Modeling}{2}{section.2}\protected@file@percent }
+\newlabel{sec:methodology}{{2}{2}{Methodology: Mathematical Modeling}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Problem Formulation}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Joint Embedding Predictive Architecture (JEPA) Pre-training}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The Battery-JEPA architecture for multi-chemistry lifetime prognostics. The Online Encoder maps the visible context cycles to a low-dimensional latent space ($s_l \in \mathbb  {R}^{64}$). The Target Encoder, updated via Exponential Moving Average (EMA) under gradient blocking, maps the complete sequence of cycles to target latent representations. The Predictor uses cross-attention to predict the target representations at masked locations using context representations and target position query embeddings. Pre-training is optimized using a joint loss: L2 representation prediction loss and a physics-guided latent monotonicity loss that constrains representations to expand monotonically over cycle index.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:model_structure}{{1}{3}{The Battery-JEPA architecture for multi-chemistry lifetime prognostics. The Online Encoder maps the visible context cycles to a low-dimensional latent space ($s_l \in \mathbb {R}^{64}$). The Target Encoder, updated via Exponential Moving Average (EMA) under gradient blocking, maps the complete sequence of cycles to target latent representations. The Predictor uses cross-attention to predict the target representations at masked locations using context representations and target position query embeddings. Pre-training is optimized using a joint loss: L2 representation prediction loss and a physics-guided latent monotonicity loss that constrains representations to expand monotonically over cycle index}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Physical Feature Scaling \& Normalization}{4}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Aligned Normalization (Dimensionless Alignment)}{4}{subsubsection.2.3.1}\protected@file@percent }
+\newlabel{eq:aligned_q}{{11}{4}{Aligned Normalization (Dimensionless Alignment)}{equation.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Unaligned Normalization (Thermodynamic Preservation)}{4}{subsubsection.2.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Downstream Adaptation via Input-Adaptive Linear Probing (IALP)}{4}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Downstream Loss Formulation}{4}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Experimental Setup}{4}{section.3}\protected@file@percent }
+\newlabel{sec:setup}{{3}{4}{Experimental Setup}{section.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Ribbon visualization of the cycle sequence masking scheme during self-supervised pre-training. We show a sequence of 5 early discharge profiles ($L=5$) for a representative Li-ion cell (cycles 10, 25, 40, 55, and 70). Visible context cycles (e.g., cycles 10, 40, and 55) are processed by the Online Encoder, while masked target cycles (cycles 25 and 70) are hidden and predicted directly in the latent space by the Predictor, forcing the model to learn temporal degradation dynamics.}}{5}{figure.2}\protected@file@percent }
+\newlabel{fig:jepa_masking_demo}{{2}{5}{Ribbon visualization of the cycle sequence masking scheme during self-supervised pre-training. We show a sequence of 5 early discharge profiles ($L=5$) for a representative Li-ion cell (cycles 10, 25, 40, 55, and 70). Visible context cycles (e.g., cycles 10, 40, and 55) are processed by the Online Encoder, while masked target cycles (cycles 25 and 70) are hidden and predicted directly in the latent space by the Predictor, forcing the model to learn temporal degradation dynamics}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Dataset Statistics and Scientific Visualization}{5}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Downstream adaptation hyperparameters for each chemistry.}}{5}{table.1}\protected@file@percent }
+\newlabel{tbl:hyperparams}{{1}{5}{Downstream adaptation hyperparameters for each chemistry}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results and Discussion}{5}{section.4}\protected@file@percent }
+\newlabel{sec:results}{{4}{5}{Results and Discussion}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Performance Evaluation}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Multi-chemistry operational statistics and degradation envelopes: (a) Normalized capacity State of Health (SOH) envelopes across Li-ion, Zn-ion, Na-ion, and CALB cells. Shaded bands represent the 10th--90th percentile bounds, showing distinct degradation modes such as initial capacity activation in phase-change chemistries (Zn-ion and Na-ion) vs. monotonic decay in Li-ion. (b) Violin plot and stripplot overlay of target end-of-life (EOL) cycle life labels across the four chemistries, demonstrating severe distribution skew and lifespan imbalance.}}{6}{figure.3}\protected@file@percent }
+\newlabel{fig:degradation_envelope}{{3}{6}{Multi-chemistry operational statistics and degradation envelopes: (a) Normalized capacity State of Health (SOH) envelopes across Li-ion, Zn-ion, Na-ion, and CALB cells. Shaded bands represent the 10th--90th percentile bounds, showing distinct degradation modes such as initial capacity activation in phase-change chemistries (Zn-ion and Na-ion) vs. monotonic decay in Li-ion. (b) Violin plot and stripplot overlay of target end-of-life (EOL) cycle life labels across the four chemistries, demonstrating severe distribution skew and lifespan imbalance}{figure.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Downstream adaptation results of Battery-JEPA (IALP) vs.\ supervised SOTA baselines across four battery chemistries.}}{6}{table.2}\protected@file@percent }
+\newlabel{tbl:overall_results}{{2}{6}{Downstream adaptation results of Battery-JEPA (IALP) vs.\ supervised SOTA baselines across four battery chemistries}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Ablation Study}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Ablation study of adaptation modes and feature normalization.}}{7}{table.3}\protected@file@percent }
+\newlabel{tbl:ablation}{{3}{7}{Ablation study of adaptation modes and feature normalization}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Comparison with Alternative Self-Supervised Learning Frameworks}{7}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Physical Interpretability}{7}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Thermodynamic Plateau Preservation}{7}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Performance comparison against alternative self-supervised learning (SSL) frameworks under the identical encoder skeleton and Input-Adaptive Linear Probing (IALP) protocol.}}{8}{table.4}\protected@file@percent }
+\newlabel{tbl:ssl_comparison}{{4}{8}{Performance comparison against alternative self-supervised learning (SSL) frameworks under the identical encoder skeleton and Input-Adaptive Linear Probing (IALP) protocol}{table.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of Zn-ion discharge curves under different scaling regimes: (a) Raw physical scale, (b) Aligned normalization (erasing plateau shifts), and (c) Unaligned global normalization (preserving the thermodynamic plateau shift).}}{8}{figure.4}\protected@file@percent }
+\newlabel{fig:thermo_plateaus}{{4}{8}{Comparison of Zn-ion discharge curves under different scaling regimes: (a) Raw physical scale, (b) Aligned normalization (erasing plateau shifts), and (c) Unaligned global normalization (preserving the thermodynamic plateau shift)}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Electrochemistry-to-Latent Feature Mapping}{8}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Physical Validity of the Resistance Proxy}{8}{subsubsection.4.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces t-SNE latent space projections of Zn-ion under (a) Aligned scaling (disordered structure) and (b) Unaligned scaling (structured degradation manifold).}}{9}{figure.5}\protected@file@percent }
+\newlabel{fig:trajectories}{{5}{9}{t-SNE latent space projections of Zn-ion under (a) Aligned scaling (disordered structure) and (b) Unaligned scaling (structured degradation manifold)}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Raw discharge profiles across the four chemistries in the BatteryLife benchmark, showing the massive differences in voltage ranges and discharge characteristics.}}{9}{figure.6}\protected@file@percent }
+\newlabel{fig:multi_chem_profiles}{{6}{9}{Raw discharge profiles across the four chemistries in the BatteryLife benchmark, showing the massive differences in voltage ranges and discharge characteristics}{figure.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Top correlating latent dimensions and Pearson $r$ for each physical parameter.}}{9}{table.5}\protected@file@percent }
+\newlabel{tbl:correlations}{{5}{9}{Top correlating latent dimensions and Pearson $r$ for each physical parameter}{table.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Sparse and Disentangled Representation Coding}{9}{subsubsection.4.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Multi-chemistry t-SNE grid projections of the adapted latent space for (a) Li-ion, (b) Zn-ion, (c) Na-ion, and (d) CALB. The cells are colored by their true cycle life, demonstrating structured degradation pathways.}}{10}{figure.7}\protected@file@percent }
+\newlabel{fig:tsne_grid}{{7}{10}{Multi-chemistry t-SNE grid projections of the adapted latent space for (a) Li-ion, (b) Zn-ion, (c) Na-ion, and (d) CALB. The cells are colored by their true cycle life, demonstrating structured degradation pathways}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Universal Latent Dimensions}{10}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:universal_dims}{{4.5}{10}{Universal Latent Dimensions}{subsection.4.5}{}}
+\newlabel{eq:universality}{{21}{10}{Universal Latent Dimensions}{equation.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Pearson correlation heatmaps mapping the top-10 latent dimensions against the four physical battery health indicators for all four chemistries.}}{11}{figure.8}\protected@file@percent }
+\newlabel{fig:heatmaps}{{8}{11}{Pearson correlation heatmaps mapping the top-10 latent dimensions against the four physical battery health indicators for all four chemistries}{figure.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Top-ranked universal latent dimensions per physical metric across all four chemistries. The Universality Score (Eq.~\ref {eq:universality}) ranks dimensions by cross-chemistry consistency.}}{11}{table.6}\protected@file@percent }
+\newlabel{tbl:universal_dims}{{6}{11}{Top-ranked universal latent dimensions per physical metric across all four chemistries. The Universality Score (Eq.~\ref {eq:universality}) ranks dimensions by cross-chemistry consistency}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Universal Manifold Analysis}{11}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:manifold}{{4.6}{11}{Universal Manifold Analysis}{subsection.4.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Latent feature correlation distributions (top row) showing sparse coding, and cumulative explained absolute correlation curves (bottom row) showing sharp knees across all chemistries.}}{12}{figure.9}\protected@file@percent }
+\newlabel{fig:distributions}{{9}{12}{Latent feature correlation distributions (top row) showing sparse coding, and cumulative explained absolute correlation curves (bottom row) showing sharp knees across all chemistries}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Scatter plots of top-performing latent dimensions against physical metrics across all four battery chemistries (Li-ion, Zn-ion, Na-ion, and CALB), with 2D KDE density contours overlaid to illustrate data density distributions.}}{12}{figure.10}\protected@file@percent }
+\newlabel{fig:scatters}{{10}{12}{Scatter plots of top-performing latent dimensions against physical metrics across all four battery chemistries (Li-ion, Zn-ion, Na-ion, and CALB), with 2D KDE density contours overlaid to illustrate data density distributions}{figure.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Universal cross-chemistry correlation heatmap: Pearson correlation between each latent dimension and four physical metrics across all four battery chemistries.}}{12}{figure.11}\protected@file@percent }
+\newlabel{fig:universal_heatmap}{{11}{12}{Universal cross-chemistry correlation heatmap: Pearson correlation between each latent dimension and four physical metrics across all four battery chemistries}{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Universality Score ranking for all 64 latent dimensions per physical metric. The sharp ``knee'' confirms sparse, disentangled encoding of chemistry-independent degradation coordinates.}}{13}{figure.12}\protected@file@percent }
+\newlabel{fig:universal_ranking}{{12}{13}{Universality Score ranking for all 64 latent dimensions per physical metric. The sharp ``knee'' confirms sparse, disentangled encoding of chemistry-independent degradation coordinates}{figure.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Cross-chemistry SOH-binned trajectories for top-ranked universal latent dimensions. All four chemistries trace monotonic, co-directional aging pathways along these universal coordinates.}}{13}{figure.13}\protected@file@percent }
+\newlabel{fig:universal_trajectories}{{13}{13}{Cross-chemistry SOH-binned trajectories for top-ranked universal latent dimensions. All four chemistries trace monotonic, co-directional aging pathways along these universal coordinates}{figure.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Joint UMAP projection of 4,317 merged test samples from all four chemistries. Despite being pre-trained exclusively on Li-ion data, the model constructs a shared degradation manifold where all chemistries coexist (Chemistry Silhouette = 0.21) and degrade along continuous, non-clustered pathways (SOH Silhouette $\approx $ 0).}}{13}{figure.14}\protected@file@percent }
+\newlabel{fig:universal_manifold}{{14}{13}{Joint UMAP projection of 4,317 merged test samples from all four chemistries. Despite being pre-trained exclusively on Li-ion data, the model constructs a shared degradation manifold where all chemistries coexist (Chemistry Silhouette = 0.21) and degrade along continuous, non-clustered pathways (SOH Silhouette $\approx $ 0)}{figure.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces PC1 trajectory cosine similarity between chemistry pairs in the 64D latent space, quantifying alignment of principal aging directions.}}{13}{table.7}\protected@file@percent }
+\newlabel{tbl:trajectory_cosine}{{7}{13}{PC1 trajectory cosine similarity between chemistry pairs in the 64D latent space, quantifying alignment of principal aging directions}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Critical Transition Point Detection via Latent Dynamics}{13}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:transitions}{{4.7}{13}{Critical Transition Point Detection via Latent Dynamics}{subsection.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Critical transition point detection across all chemistries ($N = 188$ cells). The early warning horizon measures cycles between the latent transition and End-of-Life.}}{14}{table.8}\protected@file@percent }
+\newlabel{tbl:transitions}{{8}{14}{Critical transition point detection across all chemistries ($N = 188$ cells). The early warning horizon measures cycles between the latent transition and End-of-Life}{table.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Limitations and Future Work}{14}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:limitations}{{4.8}{14}{Limitations and Future Work}{subsection.4.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion}{14}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{14}{Conclusion}{section.5}{}}
+\bibstyle{cas-model2-names}
+\bibdata{refs}
+\bibcite{jepa2023ijepa}{{1}{2023}{{Assran et~al.}}{{Assran, Duval, Tourron, Misra, Bojanowski, Bordes, Vincent, Joulin, Rabbat and LeCun}}}
+\bibcite{attia2020closed}{{2}{2020}{{Attia et~al.}}{{Attia, Grover, Jin, Severson, Markov, Yang, Chen, Cao, Harris, Chueh et~al.}}}
+\bibcite{caron2021emerging}{{3}{2021}{{Caron et~al.}}{{Caron, Touvron, Misra, Herv{\'e}, Mairal, Bojanowski and Joulin}}}
+\bibcite{grill2020bootstrap}{{4}{2020}{{Grill et~al.}}{{Grill, Strub, Altch{\'e}, Tallec, Richemond, Buchatskaya, Doersch, Avila~Pires, Guo, Azar et~al.}}}
+\bibcite{he2022masked}{{5}{2022}{{He et~al.}}{{He, Chen, Xie, Li, Doll{\'a}r and Girshick}}}
+\bibcite{lecun2022path}{{6}{2022}{{LeCun}}{{}}}
+\bibcite{li2023batteryml}{{7}{2023}{{Li et~al.}}{{Li, Zhang, Zhang, Jiang, Liu, Chen et~al.}}}
+\bibcite{severson2019data}{{8}{2019}{{Severson et~al.}}{{Severson, Attia, Jin, Perkins, Greve, Harris, Scurto, Cheong, Freake, Boyce et~al.}}}
+\bibcite{xiong2020critical}{{9}{2020}{{Xiong et~al.}}{{Xiong, Li and Tian}}}
+\bibcite{zhang2020deep}{{10}{2020}{{Zhang et~al.}}{{Zhang, Xiong, He and Pecht}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Battery degradation trajectories in UMAP latent space for all four chemistries. Red markers indicate the detected critical transition points where the trajectory shifts from a stable to an accelerated degradation regime.}}{15}{figure.15}\protected@file@percent }
+\newlabel{fig:dynamics_trajectories}{{15}{15}{Battery degradation trajectories in UMAP latent space for all four chemistries. Red markers indicate the detected critical transition points where the trajectory shifts from a stable to an accelerated degradation regime}{figure.15}{}}
+\csxdef{lastpage}{16}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Representative SOH curves (top) and latent kinematics (velocity, acceleration, curvature) for selected cells across four chemistries. Vertical dashed lines mark the detected latent transition point ($t_{\text  {trans}}$) and the capacity fade onset ($t_{\text  {fade}}$, SOH $< 98\%$). In the majority of cases, the latent transition precedes the capacity fade onset.}}{16}{figure.16}\protected@file@percent }
+\newlabel{fig:dynamics_transitions}{{16}{16}{Representative SOH curves (top) and latent kinematics (velocity, acceleration, curvature) for selected cells across four chemistries. Vertical dashed lines mark the detected latent transition point ($t_{\text {trans}}$) and the capacity fade onset ($t_{\text {fade}}$, SOH $< 98\%$). In the majority of cases, the latent transition precedes the capacity fade onset}{figure.16}{}}
+\gdef \@abspage@last{17}
