@@ -1,5 +1,7 @@
 # Battery-JEPA: Self-Supervised Joint Embedding Predictive Architecture for Universal Battery Degradation Representation
 
+**Full Code and Results will be public after the manuscript is accepted for publication**
+
 Welcome to the official repository for **Battery-JEPA**, a self-supervised foundation model architecture designed to learn a shared, chemistry-independent latent degradation manifold.
 
 Battery-JEPA captures universal aging dynamics across multiple battery chemistries—**Li-ion**, **Zn-ion**, **Na-ion**, and **CALB pouch cells**—using self-supervised joint embedding pretraining and **Input-Adaptive Linear Probing (IALP)** calibration.
