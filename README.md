@@ -1,4 +1,4 @@
-# Battery-JEPA: Self-Supervised Joint Embedding Predictive Architecture for Universal Battery Degradation Representation
+# Learning interpretable degradation representations from early-cycle battery data
 
 **Full Code and Results will be public after the manuscript is accepted for publication**
 
