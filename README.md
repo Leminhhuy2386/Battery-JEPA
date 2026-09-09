@@ -1,6 +1,6 @@
 # Learning interpretable degradation representations from early-cycle battery data
 
-**Full Code and Results will be public after the manuscript is accepted for publication**
+**Connecting early-cycle electrochemical signatures to interpretable battery degradation representations**
 
 Welcome to the official repository for **Battery-JEPA**, a self-supervised foundation model architecture designed to learn a shared, chemistry-independent latent degradation manifold.
 
