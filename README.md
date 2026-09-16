@@ -1,4 +1,4 @@
-# Learning interpretable degradation representations from early-cycle battery data
+# Learning interpretable electrochemical signatures of battery aging across chemistries
 
 **Connecting early-cycle electrochemical signatures to interpretable battery degradation representations**
 
