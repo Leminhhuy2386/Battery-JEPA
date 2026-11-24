@@ -2,3 +2,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 .DS_Store
+dataset/
+checkpoints*/
+figures/
+log/
+wandb/
+*.pth
+*.pt
+*.png
+*.jpg
+*.pdf

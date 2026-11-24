@@ -1,57 +1,82 @@
-# Learning interpretable electrochemical signatures of battery aging across chemistries
+# Battery-JEPA
 
-**Connecting early-cycle electrochemical signatures to interpretable battery degradation representations**
+Official core implementation for:
 
-Welcome to the official repository for **Battery-JEPA**, a self-supervised foundation model architecture designed to learn a shared, chemistry-independent latent degradation manifold.
-
-Battery-JEPA captures universal aging dynamics across multiple battery chemistries—**Li-ion**, **Zn-ion**, **Na-ion**, and **CALB pouch cells**—using self-supervised joint embedding pretraining and **Input-Adaptive Linear Probing (IALP)** calibration.
-
----
-
-## ⚡ Highlights
-
-* **Self-Supervised Foundations**: Leverages joint embedding predictive pretraining on electrochemical capacity-voltage profiles to learn physical degradation dynamics without relying on target downstream labels.
-* **Universal Latent Manifold**: Captures a shared latent aging space where degradation state (SOH) acts as a chemistry-agnostic coordinate.
-* **Downstream Efficiency**: Outperforms fully supervised baselines using frozen representations with lightweight downstream calibration (IALP), making it highly efficient for Edge Battery Management Systems (BMS).
+> **Cross-chemistry battery aging representations for electrochemical analysis and lifetime prediction**  
+> Phuong Thuy Vu, Huu Thuan Vo, Hong Ha Thi Vu*, Minhhuy Le*  
+> *Phenikaa School of Engineering, Phenikaa University, Hanoi, Vietnam*
 
 ---
 
-## 📊 Results Summary
+## Repository Contents
 
-The table below compares the performance of **Battery-JEPA (IALP)** against the baseline supervised winners from the **BatteryLife** benchmark (measured in Mean Absolute Percentage Error (MAPE) and Accuracy @ 15% error tolerance):
+This public repository provides the core Battery-JEPA model, self-supervised pre-training and Input-Adaptive Linear Probing (IALP) scripts, evaluation utilities, and official BatteryLife data-split definitions:
 
-| Domain / Chemistry | Best Paper Baseline | Paper Best MAPE | Battery-JEPA (IALP) MAPE ↓ | Battery-JEPA (IALP) Acc@15% ↑ | Improvement (ΔMAPE) |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **Li-ion** (MIX_large) | CPMLP | 0.179 | **0.173** | **64.2%** | **+0.006** |
-| **Zn-ion** (ZN-coin) | CPTransformer | 0.515 | **0.344** | **34.8%** | **+0.171** |
-| **Na-ion** (NA-ion) | CPTransformer | 0.255 | **0.253** | **40.0%** | **+0.002** |
-| **CALB** (CALB pouch) | CPMLP | 0.140 | **0.119** | **80.0%** | **+0.021** |
-
-> [!NOTE]
-> Battery-JEPA beats the paper domain winner in all 4 domains, with the most significant reduction in Zn-ion domain MAPE (+0.171 lower).
-
----
-
-## 🛠️ Usage
-
-To run model training or evaluations:
-```bash
-python main.py
-```
-To evaluate predictions:
-```bash
-python evaluate_model.py
+```text
+Battery-JEPA/
+├── models/
+│   └── BatteryJEPA.py                 # Online/EMA encoders, cross-attention predictor, IALP head
+├── data_provider/
+│   └── data_split_recorder.py         # Official BatteryLife train/val/test cell splits (seeds 2021, 42, 2024)
+├── pretrain_jepa.py                   # Self-supervised JEPA pre-training (Li-ion MIX_large)
+├── finetune_jepa.py                   # Downstream adaptation (IALP / Standard LP / Full FT)
+├── evaluate_model.py                  # Evaluation script (MAPE and Acc@15%)
+└── requirements.txt
 ```
 
+Additional ablation scripts and pre-trained checkpoints will be released upon publication.
+
 ---
 
-### Reference & Citation
+## Dataset & Splits
+
+This study evaluates on the public **BatteryLife** multi-chemistry benchmark (Tan et al., 2025, available from the [BatteryLife repository](https://github.com/Ruifeng-Tan/BatteryLife)) across four domains using expanding early-cycle prefixes ($k_{\text{obs}} \in [5, 100]$):
+
+| Domain | Train Cells | Val Cells | Test Cells | Test Prefixes | $\tau_{\text{EOL}}$ |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Li-ion** (`MIX_large`) | 500 | 160 | 158 | 15,168 | 0.80 |
+| **Zn-ion** (`ZN-coin`) | 59 | 20 | 20 | 1,920 | 0.80 |
+| **Na-ion** (`NAion`) | 20 | 6 | 5 | 480 | 0.80 |
+| **CALB** (`CALB`) | 17 | 5 | 5 | 477 | 0.90 |
+
+---
+
+## Quick Start
+
+```bash
+pip install -r requirements.txt
+
+# 1. Self-supervised pre-training on Li-ion MIX_large (Aligned / Unaligned)
+python pretrain_jepa.py --dataset MIX_large --align_cycles --epochs 50 --batch_size 32 --lr 1e-4 --lambda_mono 0.1
+python pretrain_jepa.py --dataset MIX_large --epochs 50 --batch_size 32 --lr 1e-4 --lambda_mono 0.1
+
+# 2. Downstream IALP adaptation (freeze temporal backbone, adapt input projections and head)
+python finetune_jepa.py --dataset MIX_large --align_cycles --freeze_backbone --tune_input_proj --batch_size 64 --lr 3e-4 --lr_factor 1.0
+python finetune_jepa.py --dataset ZN-coin --freeze_backbone --tune_input_proj --batch_size 16 --lr 1e-4 --lr_factor 0.5
+python finetune_jepa.py --dataset NAion --freeze_backbone --tune_input_proj --batch_size 16 --lr 3e-4 --lr_factor 0.2
+python finetune_jepa.py --dataset CALB --align_cycles --freeze_backbone --tune_input_proj --batch_size 16 --lr 1e-4 --lr_factor 0.05
+```
+
+---
+
+## Summary of Main Results (`seed 2021` Official Split)
+
+| Domain | BatteryLife SOTA (Tan et al., 2025) | TinyBatteryNet (Le et al., 2027) | Battery-JEPA (IALP, Ours) |
+| :--- | :---: | :---: | :---: |
+| **Li-ion** (`MIX_large`, Aligned) | 0.1790 / 62.00% | **0.1700** / 62.90% | 0.1731 / **64.24%** |
+| **Zn-ion** (`ZN-coin`, Unaligned) | 0.5150 / 20.20% | 0.3680 / 25.10% | **0.3439** / **34.74%** |
+| **Na-ion** (`NAion`, Unaligned) | 0.2550 / **40.60%** | **0.2320** / 40.00% | 0.2532 / 40.00% |
+| **CALB** (`CALB`, Aligned) | 0.1400 / 70.40% | 0.1330 / 70.20% | **0.1196** / **79.87%** |
+
+---
+
+## Citation
 
 ```bibtex
-@article{batteryjepa2026,
-  title={Universal Battery Degradation Representation via Self-Supervised Joint Embedding Predictive Architectures},
-  author={Le Minh Huy and Ruifeng Tan and Weixiang Hong and et al.},
-  journal={arXiv preprint/under review},
-  year={2026}
+@article{vu2026batteryjepa,
+  title   = {Cross-chemistry battery aging representations for electrochemical analysis and lifetime prediction},
+  author  = {Vu, Phuong Thuy and Vo, Huu Thuan and Vu, Hong Ha Thi and Le, Minhhuy},
+  journal = {Applied Energy (under review)},
+  year    = {2026}
 }
 ```
